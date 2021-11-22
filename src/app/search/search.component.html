@@ -1,0 +1,18 @@
+<form class="search-form">
+  <mat-form-field class="search-full-width" appearance="fill">
+    <mat-label>Search for a track</mat-label>
+    <input
+      type="search"
+      matInput
+      placeholder="ex. bohemian rhapsody"
+      name="searchQuery"
+      [(ngModel)]="searchQuery"
+      (keyup.enter)="searchFor(searchQuery)"
+    />
+    <mat-icon matSuffix (click)="searchFor(searchQuery)" class="search-icon">search</mat-icon>
+  </mat-form-field>
+</form>
+
+<div class="grid">
+  <app-track *ngFor="let track of tracks" [track]="track"></app-track>
+</div>

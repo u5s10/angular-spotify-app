@@ -1,0 +1,14 @@
+<mat-card class="example-card">
+  <mat-card-header class="header-card">
+    <mat-card-title>{{ track.name | slice:0:25}}</mat-card-title>
+    <mat-card-subtitle>{{ track.album.name | slice:0:40}}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <img
+      mat-card-image
+      [src]="track.album.images[0].url"
+      alt="Photo of a album cover"
+    />
+  </mat-card-content>
+  <mat-card-subtitle><a [routerLink]="['/artist', track.artists[0].id]" routerLinkActive="router-link-active" >{{track.artists[0].name}}</a></mat-card-subtitle>
+</mat-card>
