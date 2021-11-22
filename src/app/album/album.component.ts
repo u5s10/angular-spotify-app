@@ -27,10 +27,7 @@ export class AlbumComponent implements OnInit {
       forkJoin([album, tracks]).subscribe(results => {
         this.album = results[0];
         this.tracks = results[1];
-        for (const track of results[1]) {
-         console.log(track.name);
-        } 
-      })
+      });
     }
   }
 

@@ -1,2 +1,15 @@
-<p *ngIf="album">{{album.name}}</p>
-
+<mat-card *ngIf="album" class="album-card">
+  <mat-card-title-group>
+    <mat-card-title>{{ album.name }}</mat-card-title>
+    <mat-card-subtitle>by {{ tracks[0].artists[0].name }}</mat-card-subtitle>
+    <img mat-card-xl-image [src]="album.images[0].url" />
+  </mat-card-title-group>
+  <mat-card-content>
+    <mat-list>
+      <div mat-subheader>Tracks</div>
+      <mat-list-item *ngFor="let track of tracks">
+        {{ track.name }}
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+</mat-card>
