@@ -38,4 +38,8 @@ export class SpotifyService {
   getAlbum(id: string): Observable<Album> {
     return this.http.get<Album>(`http://localhost:3001/albums/${id}`);
   }
+
+  getAlbumsTracks(id: string): Observable<Track[]> {
+    return this.http.get<Track[]>(`http://localhost:3001/albums/${id}/tracks`)
+  }
 }
