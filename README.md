@@ -1,12 +1,19 @@
 # MusicApp
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.4.
+Simple Angular project displaying data from spotify such as tracks, albums, artists. Data is being fetched from [express.js backend proxy](https://github.com/u5s10/express-spotify-api). Application was made to familiarize myself with Angular concepts such as Routing, working with Services and rxjs Observables.
+
 
 ## Live demo 
 
-[MusicApp](https://wizardly-pasteur-508b06.netlify.app/)
+ App is deployed on netifly and can be access from here [MusicApp](https://wizardly-pasteur-508b06.netlify.app/)
 
-## Development server
+## Running app localy 
+
+```bash
+git clone https://github.com/u5s10/angular-spotify-app.git
+cd angular-spotify-app
+npm install
+```
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
