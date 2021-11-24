@@ -14,6 +14,7 @@ export class SpotifyService {
   constructor(private http: HttpClient) { }
 
   private lastSearch: string = '';
+  private readonly apiUrl = 'https://express-spotify-proxy.herokuapp.com'
 
   getLastSearch(): string {
     return this.lastSearch;
@@ -28,18 +29,18 @@ export class SpotifyService {
 
     const options = query ?
       { params: new HttpParams().set('q', query) } : {};
-    return this.http.get<Track[]>(`http://localhost:3001/tracks`, options);
+    return this.http.get<Track[]>(`${this.apiUrl}/tracks`, options);
   }
 
   getArtist(id: string): Observable<Artist> {
-    return this.http.get<Artist>(`http://localhost:3001/artists/${id}`);
+    return this.http.get<Artist>(`${this.apiUrl}/artists/${id}`);
   }
 
   getAlbum(id: string): Observable<Album> {
-    return this.http.get<Album>(`http://localhost:3001/albums/${id}`);
+    return this.http.get<Album>(`${this.apiUrl}/albums/${id}`);
   }
 
   getAlbumsTracks(id: string): Observable<Track[]> {
-    return this.http.get<Track[]>(`http://localhost:3001/albums/${id}/tracks`)
+    return this.http.get<Track[]>(`${this.apiUrl}/albums/${id}/tracks`)
   }
 }
