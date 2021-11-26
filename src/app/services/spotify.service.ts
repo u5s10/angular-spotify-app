@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { switchMap, map } from 'rxjs/operators';
 import { Track } from '../models/track.model';
 import { Artist } from '../models/artist.model';
 import { Album } from '../models/album.model';
@@ -13,23 +12,51 @@ export class SpotifyService {
 
   constructor(private http: HttpClient) { }
 
-  private lastSearch: string = '';
-  private readonly apiUrl = 'https://express-spotify-proxy.herokuapp.com'
+  private query: string = '';
+  private offset: number = 0;
+  private readonly apiUrl = 'https://express-spotify-proxy.herokuapp.com';
+  private tracks: Track[] = []; 
+  private tracks$ = new BehaviorSubject<Track[]>([]);
+
+  getTracksStream(): Observable<Track[]>{
+    return this.tracks$.asObservable();
+  }
 
   getLastSearch(): string {
-    return this.lastSearch;
+    return this.query;
   }
 
   setLastSearch(query: string) {
-    this.lastSearch = query;
+    this.query = query;
   }
 
-  getTracks(query: string): Observable<Track[]> {
-    query = query.trim();
+  getTracks(search: string) {
+    if(search === this.query)
+      return;
+    this.offset = 0;
+    const options = search ?
+      { params: new HttpParams().set('q', search) } : {};
+    this.http.get<Track[]>(`${this.apiUrl}/tracks`, options)
+      .subscribe(
+        (tracks: Track[]) => {
+          this.tracks = tracks;
+          this.tracks$.next(this.tracks);
+        }
+      )
+  }
 
-    const options = query ?
-      { params: new HttpParams().set('q', query) } : {};
-    return this.http.get<Track[]>(`${this.apiUrl}/tracks`, options);
+  loadMoreTracks(){
+    this.offset += 20;
+    const search = "more";
+    const options = search ?
+      { params: new HttpParams().set('q', search) } : {};
+    this.http.get<Track[]>(`${this.apiUrl}/tracks`, options)
+      .subscribe(
+        (tracks: Track[]) => {
+          this.tracks.push(...tracks);
+          this.tracks$.next(this.tracks);
+        }
+      )
   }
 
   getArtist(id: string): Observable<Artist> {

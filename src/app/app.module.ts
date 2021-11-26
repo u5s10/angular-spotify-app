@@ -9,6 +9,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import {MatCardModule} from '@angular/material/card'; 
 import {MatListModule} from '@angular/material/list';
+import {MatButtonModule} from '@angular/material/button'; 
 import { HttpClientModule } from '@angular/common/http';
 import { SearchComponent } from './search/search.component';
 import { TrackComponent } from './track/track.component';
@@ -33,6 +34,7 @@ import { FormsModule } from '@angular/forms';
     MatIconModule,
     MatCardModule,
     MatListModule,
+    MatButtonModule,
     HttpClientModule,
     FormsModule
   ],

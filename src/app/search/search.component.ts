@@ -10,23 +10,23 @@ import { SpotifyService } from '../services/spotify.service';
 })
 export class SearchComponent implements OnInit {
 
-  constructor(private spotifyService: SpotifyService) { }
+  constructor(private spotifyService: SpotifyService) {
+    this.tracks$ = this.spotifyService.getTracksStream();
+   }
 
-  tracks: Track[] = [];
+  tracks$!: Observable<Track[]>;
   searchQuery: string = '';
 
   ngOnInit(): void {
     this.searchQuery = this.spotifyService.getLastSearch();
-    if(this.searchQuery !== '')
-      this.searchFor(this.searchQuery); 
   }
 
   searchFor(query: string) {
+    this.spotifyService.getTracks(query);
     this.spotifyService.setLastSearch(query);
-    this.spotifyService.getTracks(query).subscribe(
-      (tracks: Track[]) => {
-        this.tracks = tracks;
-      }
-    );
+  }
+
+  loadMore(){
+    this.spotifyService.loadMoreTracks();
   }
 }
