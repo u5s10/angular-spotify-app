@@ -17,7 +17,15 @@
 
 <div class="grid">
   <app-track *ngFor="let track of tracks$ | async" [track]="track"></app-track>
+  <ngx-spinner
+    type="ball-clip-rotate-multiple"
+    size="medium"
+  >
+    <p class="loading">Loading...</p>
+  </ngx-spinner>
 </div>
 <div *ngIf="load" class="load__more">
-  <button (click)="loadMore()" mat-raised-button color="primary">Load more</button>
+  <button (click)="loadMore()" mat-raised-button color="primary">
+    Load more
+  </button>
 </div>

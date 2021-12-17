@@ -20,6 +20,8 @@ export class SearchComponent implements OnInit {
 
   ngOnInit(): void {
     this.searchQuery = this.spotifyService.getLastSearch();
+    if(this.searchQuery)
+      this.load = true;
   }
 
   searchFor(query: string) {

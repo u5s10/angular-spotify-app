@@ -4,13 +4,14 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { Track } from '../models/track.model';
 import { Artist } from '../models/artist.model';
 import { Album } from '../models/album.model';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Injectable({
   providedIn: 'root'
 })
 export class SpotifyService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private spinner: NgxSpinnerService) { }
 
   private query: string = '';
   private offset: number = 0;
@@ -33,6 +34,7 @@ export class SpotifyService {
   getTracks(search: string) {
     if(search === this.query)
       return;
+    this.spinner.show();
     this.offset = 0;
     const options = search ?
       { params: new HttpParams().set('q', search).set('offset', this.offset) } : {};
@@ -41,11 +43,13 @@ export class SpotifyService {
         (tracks: Track[]) => {
           this.tracks = tracks;
           this.tracks$.next(this.tracks);
+          this.spinner.hide();
         }
       )
   }
 
   loadMoreTracks(){
+    this.spinner.show();
     this.offset += 20;
     const search = "more";
     const options = search ?
@@ -55,6 +59,7 @@ export class SpotifyService {
         (tracks: Track[]) => {
           this.tracks.push(...tracks);
           this.tracks$.next(this.tracks);
+          this.spinner.hide();
         }
       )
   }
