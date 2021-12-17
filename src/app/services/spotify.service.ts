@@ -35,7 +35,7 @@ export class SpotifyService {
       return;
     this.offset = 0;
     const options = search ?
-      { params: new HttpParams().set('q', search) } : {};
+      { params: new HttpParams().set('q', search).set('offset', this.offset) } : {};
     this.http.get<Track[]>(`${this.apiUrl}/tracks`, options)
       .subscribe(
         (tracks: Track[]) => {
@@ -49,7 +49,7 @@ export class SpotifyService {
     this.offset += 20;
     const search = "more";
     const options = search ?
-      { params: new HttpParams().set('q', search) } : {};
+      { params: new HttpParams().set('q', search).set('offset', this.offset) } : {};
     this.http.get<Track[]>(`${this.apiUrl}/tracks`, options)
       .subscribe(
         (tracks: Track[]) => {

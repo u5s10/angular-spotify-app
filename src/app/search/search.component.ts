@@ -16,6 +16,7 @@ export class SearchComponent implements OnInit {
 
   tracks$!: Observable<Track[]>;
   searchQuery: string = '';
+  load: boolean = false;
 
   ngOnInit(): void {
     this.searchQuery = this.spotifyService.getLastSearch();
@@ -24,6 +25,7 @@ export class SearchComponent implements OnInit {
   searchFor(query: string) {
     this.spotifyService.getTracks(query);
     this.spotifyService.setLastSearch(query);
+    this.load = true;
   }
 
   loadMore(){

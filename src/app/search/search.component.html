@@ -18,6 +18,6 @@
 <div class="grid">
   <app-track *ngFor="let track of tracks$ | async" [track]="track"></app-track>
 </div>
-<div class="load__more">
+<div *ngIf="load" class="load__more">
   <button (click)="loadMore()" mat-raised-button color="primary">Load more</button>
 </div>
